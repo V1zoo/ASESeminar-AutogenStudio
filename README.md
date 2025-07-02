@@ -20,4 +20,5 @@ autogenstudio ui --port 8085 --appdir ./ASESeminar-AutogenStudio/AGSdir
 ### 4. Visit localhost:8085
 
 - set OpenAI key: Gallery -> Default Component Gallery -> Models -> OpenAI GPT-4o Mini
+- update ASETeam2: Team Builder -> ASETeam2 -> Drag and drop the component "OpenAI GPT-4o Mini" in the model slot of the agents
 - try out: Playground -> new Session with AGSTeam2 -> Enter prompt: `Fix problem 1`
