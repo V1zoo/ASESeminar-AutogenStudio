@@ -14,6 +14,9 @@ pip install -U autogenstudio
 autogenstudio ui --port 8085 --appdir /AGSdir
 ```
 
+- `SWE-Bench-Lite API` is expected to run at port `8081`
+- `SWE-Bench-Lite Tester` is expected to run at port `8082`
+
 ### 4. Visit localhost:8085
 
 - set OpenAI key: Gallery -> Default Component Gallery -> Models -> OpenAI GPT-4o Mini
