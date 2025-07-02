@@ -11,7 +11,7 @@ pip install -U autogenstudio
 ### 3. Run autogen studio
 
 ```
-autogenstudio ui --port 8085 --appdir /AGSdir
+autogenstudio ui --port 8085 --appdir ./ASESeminar-AutogenStudio/AGSdir
 ```
 
 - `SWE-Bench-Lite API` is expected to run at port `8081`
