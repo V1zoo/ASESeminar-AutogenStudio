@@ -1,0 +1,15 @@
+{
+  "provider": "autogen_core.tools.FunctionTool",
+  "component_type": "tool",
+  "version": 1,
+  "component_version": 1,
+  "description": "A tool that writes given content to a file",
+  "label": "file_write",
+  "config": {
+    "source_code": "def file_write(file_path: str, content: str) -> str:\n    try:\n        with open(file_path, 'w') as f:\n            f.write(content)\n        return f\"Successfully written to {file_path}\"\n    except Exception as e:\n        return f\"Error: {str(e)}\"\n",
+    "name": "file_write",
+    "description": "A simple calculator that performs basic arithmetic operations",
+    "global_imports": [],
+    "has_cancellation_support": false
+  }
+}

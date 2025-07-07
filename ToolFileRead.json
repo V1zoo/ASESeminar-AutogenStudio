@@ -1,0 +1,15 @@
+{
+  "provider": "autogen_core.tools.FunctionTool",
+  "component_type": "tool",
+  "version": 1,
+  "component_version": 1,
+  "description": "A tool that reads the content of a file",
+  "label": "file_read",
+  "config": {
+    "source_code": "def file_read(file_path: str) -> str:\n    try:\n        with open(file_path, 'r') as f:\n            return f.read()\n    except Exception as e:\n        return f\"Error: {str(e)}\"\n",
+    "name": "file_read",
+    "description": "A simple calculator that performs basic arithmetic operations",
+    "global_imports": [],
+    "has_cancellation_support": false
+  }
+}

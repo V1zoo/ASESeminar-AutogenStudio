@@ -1,0 +1,15 @@
+{
+  "provider": "autogen_core.tools.FunctionTool",
+  "component_type": "tool",
+  "version": 1,
+  "component_version": 1,
+  "description": "This tool returns the problem details corresponding to the index passed. The response has the following format: {\"index\": int, \"directory\": str, \"problem_description\": str, }",
+  "label": "get_problem_details",
+  "config": {
+    "source_code": "import requests\nimport os\nimport subprocess\nimport json\nimport sys\n\ndef get_problem_details(index: int) -> str:\n    try:\n        API_URL = \"http://localhost:8081/task/index/\"\n        api_url = f\"{API_URL}{index}\"\n        start_dir = os.getcwd()     #get current working directory\n        repo_dir = os.path.join(start_dir, f\"repos\\\\repo_{index}\")\n        responseJSON = requests.get(api_url, timeout=10).json()\n        taskNumber = responseJSON['taskNumber']\n        instance_id = responseJSON['instance_id']\n        prompt = responseJSON[\"Problem_statement\"]\n        git_clone = responseJSON[\"git_clone\"]\n        fail_to_pass = json.loads(responseJSON.get(\"FAIL_TO_PASS\",\"[]\"))\n        pass_to_pass = json.loads(responseJSON.get(\"PASS_TO_PASS\",\"[]\"))\n        parts = git_clone.split(\"&&\")\n        clone_part = parts[0].strip()\n        checkout_part = parts[-1].strip() if len(parts) > 1 else None\n        env = os.environ.copy()\n        env[\"GIT_TERMINAL_PROMT\"] = \"0\"\n        repo_url = clone_part.split()[2]\n        if not os.path.isdir(repo_dir):\n            subprocess.run([\"git\", \"clone\", repo_url, repo_dir], check=True, env= env)\n            if checkout_part:\n                commit_hash = checkout_part.split()[-1]\n                subprocess.run([\"git\", \"checkout\", commit_hash], cwd=repo_dir, check=True, env=env)\n        \n        result = {\n            \"index\": index,\n            \"directory\": repo_dir,\n            \"problem_description\": prompt\n        }\n        return result\n    except Exception as e:\n        return f\"Error: {str(e)}\"\n",
+    "name": "get_problem_details",
+    "description": "This tool returns the problem statement corresponding to the number passed",
+    "global_imports": ["requests", "os", "subprocess", "json", "sys"],
+    "has_cancellation_support": false
+  }
+}

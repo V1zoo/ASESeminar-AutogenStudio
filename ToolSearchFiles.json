@@ -1,0 +1,15 @@
+{
+  "provider": "autogen_core.tools.FunctionTool",
+  "component_type": "tool",
+  "version": 1,
+  "component_version": 1,
+  "description": "A tool that searches all the files in a given directory by a given pattern.",
+  "label": "search_files",
+  "config": {
+    "source_code": "import re\nimport os\nimport fnmatch\n\ndef search_files(directory: str, pattern: str) -> list:\n    try:\n        matches = []\n        for root, _, filenames in os.walk(directory):\n            for filename in filenames:\n                absolute_path = os.path.join(root, filename)\n                with open(absolute_path,encoding=\"latin-1\") as f:\n                    if len(re.findall(pattern,f.read()))>0:\n                        matches.append(absolute_path)\n            for filename in fnmatch.filter(filenames, pattern):\n                absolute_path = os.path.join(root, filename)\n                matches.append(absolute_path)\n        if matches:\n            return \"\\n\".join(matches)\n        else:\n            return f\"No files found for pattern {pattern} in directory {directory}\"\n    except Exception as e:\n        return f\"Error: {str(e)}\"\n",
+    "name": "search_files",
+    "description": "A simple calculator that performs basic arithmetic operations",
+    "global_imports": ["re", "os", "fnmatch"],
+    "has_cancellation_support": false
+  }
+}

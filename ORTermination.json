@@ -1,0 +1,35 @@
+{
+  "provider": "autogen_agentchat.base.OrTerminationCondition",
+  "component_type": "termination",
+  "version": 1,
+  "component_version": 1,
+  "description": "Termination condition that ends the conversation when either a message contains 'TERMINATE' or the maximum number of messages is reached.",
+  "label": "OR Termination",
+  "config": {
+    "conditions": [
+      {
+        "provider": "autogen_agentchat.conditions.TextMentionTermination",
+        "component_type": "termination",
+        "version": 1,
+        "component_version": 1,
+        "description": "Terminate the conversation if a specific text is mentioned.",
+        "label": "TextMentionTermination",
+        "config": {
+          "text": "TERMINATE"
+        }
+      },
+      {
+        "provider": "autogen_agentchat.conditions.MaxMessageTermination",
+        "component_type": "termination",
+        "version": 1,
+        "component_version": 1,
+        "description": "Terminate the conversation after a maximum number of messages have been exchanged.",
+        "label": "MaxMessageTermination",
+        "config": {
+          "max_messages": 64,
+          "include_agent_event": false
+        }
+      }
+    ]
+  }
+}
